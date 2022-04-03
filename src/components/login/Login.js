@@ -1,8 +1,36 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Login.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { auth } from "../../config/firebase";
 
 function Login() {
+  const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const login = (event) => {
+    event.preventDefault();
+    auth
+      .signInWithEmailAndPassword(email, password)
+      .then((auth) => {
+        navigate("/");
+      })
+      .catch((e) => {
+        if (
+          e.message ===
+          "The password is invalid or the user does not have a password."
+        ) {
+          alert("Please check your credentials again");
+        } else if (
+          e.message ===
+          "There is no user record corresponding to this identifier. The user may have been deleted."
+        ) {
+          alert("Please check your credentials again");
+        } else {
+          alert(e.message);
+        }
+      });
+  };
   return (
     <div className="login">
       <img
@@ -13,13 +41,21 @@ function Login() {
         <h3>Log In To Facebook</h3>
         <form>
           <center>
-            <input type="email" placeholder="Email Address" />
+            <input
+              type="email"
+              placeholder="Email Address"
+              onChange={(event) => setEmail(event.target.value)}
+            />
           </center>
           <center>
-            <input type="password" placeholder="Password" />
+            <input
+              type="password"
+              placeholder="Password"
+              onChange={(event) => setPassword(event.target.value)}
+            />
           </center>
           <center>
-            <button type="submit" className="login__login">
+            <button type="submit" className="login__login" onClick={login}>
               Log In
             </button>
           </center>
