@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import "./Register.css";
 import { auth, db } from "../../config/firebase";
+import { auth, db } from "../../config/firebase";
 
 function Register() {
   const navigate = useNavigate();

@@ -6,6 +6,14 @@
   align-items: center;
 }
 
+.login {
+  background-color: #e9ebee;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .login__logo {
   height: 85px;
   margin-top: 35px;
